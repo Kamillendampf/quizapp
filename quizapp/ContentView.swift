@@ -49,7 +49,7 @@ struct ContentView: View {
                     .position(x: 200, y: -110)
                 
                 Text("Der Spielleiter liest die auf der Frachtkarte stehende Frage und Buchstaben laut vor. Alle Personen können nun ein passendes" +
-                     "Wort raten. Das Wort, welches zu raten ist, muss mit dem vorgelesenen Buchstaben beginnen." )
+                     " Wort raten. Das Wort, welches zu raten ist, muss mit dem vorgelesenen Buchstaben beginnen." )
                 .padding(.horizontal, 20)
                 .frame(width: 400, height:300)
                 .position(x: 190, y: -170)
