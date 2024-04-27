@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		641302072BD8F30C00A760C1 /* GameEnd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641302062BD8F30C00A760C1 /* GameEnd.swift */; };
+		641302092BD9195D00A760C1 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641302082BD9195D00A760C1 /* Player.swift */; };
 		64262C7C2BC423CD00F644A7 /* quizappApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64262C7B2BC423CD00F644A7 /* quizappApp.swift */; };
 		64262C802BC423D000F644A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64262C7F2BC423D000F644A7 /* Assets.xcassets */; };
 		64262C842BC423D000F644A7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64262C832BC423D000F644A7 /* Preview Assets.xcassets */; };
@@ -35,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		641302062BD8F30C00A760C1 /* GameEnd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEnd.swift; sourceTree = "<group>"; };
+		641302082BD9195D00A760C1 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		64262C782BC423CD00F644A7 /* quizapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = quizapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64262C7B2BC423CD00F644A7 /* quizappApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = quizappApp.swift; sourceTree = "<group>"; };
 		64262C7D2BC423CD00F644A7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -97,9 +101,11 @@
 		64262C7A2BC423CD00F644A7 /* quizapp */ = {
 			isa = PBXGroup;
 			children = (
+				64262C7D2BC423CD00F644A7 /* ContentView.swift */,
 				64262CA82BC42C2600F644A7 /* FastAnswerQuestion.swift */,
 				64262C7B2BC423CD00F644A7 /* quizappApp.swift */,
-				64262C7D2BC423CD00F644A7 /* ContentView.swift */,
+				641302082BD9195D00A760C1 /* Player.swift */,
+				641302062BD8F30C00A760C1 /* GameEnd.swift */,
 				64262C7F2BC423D000F644A7 /* Assets.xcassets */,
 				64262C812BC423D000F644A7 /* quizapp.entitlements */,
 				64262C822BC423D000F644A7 /* Preview Content */,
@@ -263,7 +269,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				64262CA92BC42C2600F644A7 /* FastAnswerQuestion.swift in Sources */,
+				641302072BD8F30C00A760C1 /* GameEnd.swift in Sources */,
 				64262C7C2BC423CD00F644A7 /* quizappApp.swift in Sources */,
+				641302092BD9195D00A760C1 /* Player.swift in Sources */,
 				644A29F02BC56FB700811CC4 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

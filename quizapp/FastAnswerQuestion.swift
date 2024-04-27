@@ -106,18 +106,27 @@ class QuizManager : ObservableObject{
         Question(quest: "Was moechtest du werden.", letter:  ""),
         Question(quest: "Ein Computer-Spiel.", letter:  ""),
         Question(quest: "Ein Unternehmen.", letter:  ""),
-        Question(quest: "Ein Beruf.", letter:  ""),	
+        Question(quest: "Ein Beruf.", letter:  ""),
     ]
     @Published var displayedQuestion : Question?
+    var shuffeldList : [Question]   = []
     
     init(){
-       updateQuestion()
+        updateQuestion()
+    }
+        
+    func updateQuestion() {
+        if !mockQuestions.isEmpty{
+             shuffeldList = mockQuestions.shuffled()
+            displayedQuestion = Question(quest: shuffeldList[0].quest,
+                                         letter: randLetter())
+            shuffeldList.remove(at: 0)
+            mockQuestions = shuffeldList
+        }
     }
     
-    func updateQuestion() {
-        displayedQuestion = Question(quest: mockQuestions.shuffled()[0].quest,
-                        letter: randLetter())
-        
+    func isQuestionEmpty() -> Bool{
+        return mockQuestions.isEmpty
     }
 
     func randLetter() -> String{
@@ -125,72 +134,127 @@ class QuizManager : ObservableObject{
                  "O", "P", "Q", "R", "S", " T", "U", "V", "W", "X", "Y", "Z"]
             .shuffled()[0]
     }
-    
 }
 
-struct Question: Identifiable{
+class AppState: ObservableObject {
+    @Published var isSheetPresented = false
+}
+
+class VStackFrameControle{
+    @Published var width : CGFloat = 350
+    @Published var height : CGFloat = 250
+    
+    func widthLandscape(){
+        width = 600
+    }
+    
+    func heightLandscape(){
+        height = 3500
+    }
+}
+
+struct Question: Identifiable, Equatable{
     let id = UUID()
     let quest : String
     var letter : String
 }
 
+
+
 struct QuestionView: View{
-    @State var question = Question(quest: "A Question", letter: "A")
+    @State var question = Question(quest: "A Question thts looking really long for better text oo", letter: "A")
+    @State var isNavigation = false
+    @State private var selectedPlayerIndex: Int?
+    @ObservedObject var appState = AppState()
     @ObservedObject var manager = QuizManager()
+    @ObservedObject var playerObj = Players()
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.verticalSizeClass) var verticalSizeClass
+  
+    var timer: Timer?
+   @State var isTimerFinished = false
     
+    var vsc = VStackFrameControle()
+    
+    
+
+ 
     var body: some View{
-       
         if  UIDevice.current.orientation.isLandscape {
-            VStack(alignment: .leading) {
-                Text(question.quest)
-                    .padding(.bottom)
-            
-                Text(question.letter)
-                    .padding(.bottom)
-            }
-            .padding(.horizontal, 20)
-            .frame(width: 600, height: 200)
-            .background(.gray)
-            .cornerRadius(20)
-            .shadow(color: .gray, radius: 15)
-            .onTapGesture {
-                manager.updateQuestion()
-                if let updatedQuestion = manager.displayedQuestion{
-                    question = updatedQuestion
-                }
-
-            }
-            
-        } else {
-            VStack(alignment: .leading) {
-                Text(question.quest)
-                    .padding(.bottom)
-            
-                Text(question.letter)
-                    .padding(.bottom)
-                
-            }
-            .padding(.horizontal, 20)
-            .frame(width: 600, height: 200)
-            .background(.gray)
-            .cornerRadius(20)
-            .shadow(color: .gray, radius: 15)
-            .rotationEffect(.degrees(90))
-            .onTapGesture {
-                manager.updateQuestion()
-                if let updatedQuestion = manager.displayedQuestion{
-                    question = updatedQuestion
-                }
-
+            Text("").onAppear(){
+                vsc.widthLandscape()
+                vsc.heightLandscape()
             }
         }
+        if !manager.isQuestionEmpty(){
+       
+            
+                VStack(alignment: .center) {
+                    Text(question.quest)
+                        .padding(.bottom)
+                    if isTimerFinished{
+                        Text(question.letter)
+                            .padding(.bottom)
+                    }
+                    
+                    
+                    Text("Neuer Buchstabe")
+                        .padding(.all)
+                        .background(Color.black)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                        .onTapGesture {
+                            question.letter = manager.randLetter()
+                        }
+                    
+                }
+                .padding(.horizontal, 20)
+                .frame(width: 350, height: 200)
+                .background(.gray)
+                .cornerRadius(20)
+                .shadow(color: .gray, radius: 15)
+                .onTapGesture {
+
+                    appState.isSheetPresented = true
+                    
+                }.onAppear(){
+                    timerStart()
+                }
+                .fullScreenCover(isPresented: $appState.isSheetPresented, content: {
+                    Text("Tippe auf den Namen um einen Punkt zu vergeben:")
+                        .padding(.bottom)
+                        ForEach(playerObj.getPlayer()){player in
+                            Text("\(player.name) Punkte: \(player.score)")
+                                .padding()
+                                .background(.gray)
+                                .cornerRadius(10)
+                                .onTapGesture {
+                                    var winner = player
+                                    playerObj.updateScore(for: &winner)
+                                    manager.updateQuestion()
+                                    if let updatedQuestion = manager.displayedQuestion{
+                                        question = updatedQuestion
+                                    }
+                                    timerStart()
+                                   }
+                        }
+                })
+            }
+        
+        else{
+            EndView(playerObj: playerObj)
+        }
+
     }
     
-
-
+    
+    func timerStart(){
+        Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false){ timer in
+            isTimerFinished = true
+        }
+    }
 }
+
 
 
 
