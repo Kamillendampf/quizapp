@@ -5,11 +5,7 @@
 //  Created by Raphael Härle on 08.04.24.
 //
 
-
 import SwiftUI
-
-
-
 
 struct ContentView: View {
     @ObservedObject var manager = QuizManager()
@@ -97,7 +93,6 @@ struct AddPlayer : View {
             .foregroundColor(.black)
             .navigationBarHidden(true)
         }
-    
 }
 
 

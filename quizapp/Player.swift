@@ -13,7 +13,7 @@ struct Player : Identifiable {
     var score: Int
 }
 
-import Combine
+
 
 class Players: ObservableObject { 
     @Published var players: [Player] = []
@@ -24,6 +24,7 @@ class Players: ObservableObject {
         let newPlayer = Player(id : UUID(),name: name, score: 0)
         players.append(newPlayer)
     }
+    
     func getPlayer() -> [Player]{
         return players
     }
@@ -38,8 +39,3 @@ class Players: ObservableObject {
           }
     }
 }
-
-
-
-
-

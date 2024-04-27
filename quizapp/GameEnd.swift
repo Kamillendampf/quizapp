@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct EndView: View {
     @ObservedObject var playerObj = Players()
     var body: some View {
@@ -22,7 +21,6 @@ struct EndView: View {
             .frame(width: 150, height: 50)
             .background(.black)
             .cornerRadius(10)
-        
             ForEach(playerObj.getRankedPlayer()){player in
                 Text("\(player.name) Punkte: \(player.score)")
                     .padding()
@@ -38,7 +36,6 @@ struct EndView: View {
         .navigationBarHidden(true)
     }
 }
-
 
 struct EndView_Previews: PreviewProvider{
     static var previews: some View{

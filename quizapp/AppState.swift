@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+class AppState: ObservableObject {
+    @Published var isSheetPresented = false
+}
